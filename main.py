@@ -1,5 +1,4 @@
 from os import system,name
-from time import sleep 
 
 class Player:
     def __init__(self,symbol) -> None:
@@ -52,6 +51,9 @@ class Grid:
                 if not self.is_valid_box(row,col):
                     print("\nEnter valid box position:\n")
                     continue
+                if self.visited[row][col]:
+                    print("\nIt's already filled.\nChoose another unfilled box\n") 
+                    continue
                 return row,col
 
             except Exception as e:
@@ -73,20 +75,14 @@ class Grid:
         self.print_mat()
         player.ask_to_move()
         row, col = self.take_input() 
+ 
+        self.mat[row][col] = player.move
+        self.visited[row][col] = True
 
-        if not self.visited[row][col]:
-            self.mat[row][col] = player.move
-            self.visited[row][col] = True
-
-            if self.check_for_win():
-                self.print_mat()
-                print(f"{player.name} you won the game ")
-                exit()
-        else:
-            print("\nIt's already filled.\nChoose another unfilled box\n") 
-            sleep(5)
-            self.fill_box(player)
-
+        if self.check_for_win():
+            self.print_mat()
+            print(f"{player.name} you won the game ")
+            exit()
 
     @staticmethod
     def play(grid,player_1:Player,player_2:Player):
@@ -94,17 +90,18 @@ class Grid:
 
         while count <= 9:
             player_1.ask_to_move()
-
             grid.fill_box(player_1)
             count+=1
 
             if count==9:
                 print(f"\nIt's a tie between {player_1.name} and {player_2.name}")
                 exit()
+                
             player_2.ask_to_move()
 
             grid.fill_box(player_2)
             count+=1
+
 
 grid1 = Grid()
 
