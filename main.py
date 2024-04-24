@@ -81,17 +81,19 @@ class Grid:
 
     def play(self,player_1:Player,player_2:Player):
         count = 0
+        final_count = 9
+        win_count = 5
 
-        while count <= 9:
+        while count <= final_count:
             player_1.ask_to_move()
             self.fill_box(player_1)
             count+=1
-            if count >= 6 and self.check_for_win():
+            if count >= win_count and self.check_for_win():
                 self.print_mat()
                 print(f"{player_1.name} you won the game ")
                 exit()
 
-            if count==9:
+            if count==final_count:
                 print(f"\nIt's a tie between {player_1.name} and {player_2.name}")
                 exit()
                 
@@ -99,7 +101,7 @@ class Grid:
 
             self.fill_box(player_2)
             count+=1
-            if count >= 6 and self.check_for_win():
+            if count >= win_count and self.check_for_win():
                 self.print_mat()
                 print(f"{player_2.name} you won the game ")
                 exit()
