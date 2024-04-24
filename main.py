@@ -116,4 +116,4 @@ player_2 = Player('O')
 print("Player 2 ")
 player_2.ask_name()
 
-Grid.play(grid1,player_1,player_2)
+grid1.play(player_1,player_2)
