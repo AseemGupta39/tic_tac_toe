@@ -15,7 +15,7 @@ class Player:
 class Grid:
     def __init__(self) -> None:
         self.mat = [[col + row*3 + 1 for col in range(3)] for row in range(3)]
-        self.visited = [[False for _ in range(3)] for _ in range(3)]
+        # self.visited = [[False for _ in range(3)] for _ in range(3)]
 
         self.win_list = [
                     [0,0,0,1,0,2],
@@ -51,7 +51,7 @@ class Grid:
                 if not self.is_valid_box(row,col):
                     print("\nEnter valid box position:\n")
                     continue
-                if self.visited[row][col]:
+                if self.mat[row][col]!=num+1:
                     print("\nIt's already filled.\nChoose another unfilled box\n") 
                     continue
                 return row,col
@@ -77,7 +77,7 @@ class Grid:
         row, col = self.take_input() 
  
         self.mat[row][col] = player.move
-        self.visited[row][col] = True
+        # self.visited[row][col] = True
 
     def play(self,player_1:Player,player_2:Player):
         count = 0
